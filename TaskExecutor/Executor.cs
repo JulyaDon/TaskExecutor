@@ -5,19 +5,18 @@ namespace TaskExecutor
 {
     public class Executor
     {
-        delegate void TaskExecutorDel();
-        private ConcurrentQueue<TaskExecutorDel> tasksQueue = new ConcurrentQueue<TaskExecutorDel>();
-        private void Task()
+        private ConcurrentQueue<Action> tasksQueue = new ConcurrentQueue<Action>(); 
+        public void AddTask(Action task)
         {
-            Random random = new Random();
-            int randomDelay = random.Next(1000, 10000);
-            System.Threading.Thread.Sleep(randomDelay);
-            Console.WriteLine("Execution of task");
+            task = new ClientTask().Task;
+            tasksQueue.Enqueue(task);
         }
-        private void AddTask()
+        public void ExeculeAllTasks()
         {
-            TaskExecutorDel taskExecutorDel = Task;
-            tasksQueue.Enqueue(taskExecutorDel);
+            foreach(Action task in tasksQueue)
+            {
+                task();
+            }
         }
     }
 }
