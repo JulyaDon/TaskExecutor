@@ -1,14 +1,23 @@
-﻿using Microsoft.Analytics.Interfaces;
-using Microsoft.Analytics.Types.Sql;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
+﻿using System;
+using System.Collections.Concurrent;
 
 namespace TaskExecutor
 {
-    class Executor
+    public class Executor
     {
+        delegate void TaskExecutorDel();
+        private ConcurrentQueue<TaskExecutorDel> tasksQueue = new ConcurrentQueue<TaskExecutorDel>();
+        private void Task()
+        {
+            Random random = new Random();
+            int randomDelay = random.Next(1000, 10000);
+            System.Threading.Thread.Sleep(randomDelay);
+            Console.WriteLine("Execution of task");
+        }
+        private void AddTask()
+        {
+            TaskExecutorDel taskExecutorDel = Task;
+            tasksQueue.Enqueue(taskExecutorDel);
+        }
     }
 }
