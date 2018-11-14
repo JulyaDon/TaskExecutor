@@ -8,20 +8,11 @@ namespace TaskExecutor
     {
         private ConcurrentQueue<Action> tasksQueue = new ConcurrentQueue<Action>();
         private Thread threadForTasks;
-        CancellationTokenSource source = new CancellationTokenSource();
+        private  CancellationTokenSource cancellationSource = new CancellationTokenSource();
 
-        public void AddExecutionQueue(Action task)
+        public void AddToExecutionQueue(Action task)
         {
-            task = new ClientTask().Task;
             tasksQueue.Enqueue(task);
-        }
-
-        public void ExeculeAllTasks()
-        {
-            foreach(Action task in tasksQueue)
-            {
-                task();
-            }
         }
 
         private void Initialize(CancellationToken token)
@@ -31,9 +22,11 @@ namespace TaskExecutor
                 while (!token.IsCancellationRequested)
                 {
                     Action result;
-                    bool resultOfDequeue = false;
-                    resultOfDequeue = tasksQueue.TryDequeue(out result);
-                    if (!resultOfDequeue)
+                    if (tasksQueue.TryDequeue(out result))
+                    {
+                        result();
+                    }
+                    else
                     {
                         Thread.Sleep(1000);
                     }
@@ -46,15 +39,14 @@ namespace TaskExecutor
         {
             if (threadForTasks == null)
             {
-                CancellationToken token = source.Token;
-                Initialize(token);
+                Initialize(cancellationSource.Token);
             }
         }
 
         public void StopExecutor()
         {
-            source.Cancel();
-            source.Dispose();
+            cancellationSource.Cancel();
+            cancellationSource.Dispose();
         }
     }
 }
