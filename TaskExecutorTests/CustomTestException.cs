@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace TaskExecutorTests
 {
-    class Program
+    class CustomTestException : Exception
     {
-        static void Main(string[] args)
+        public CustomTestException(string message) : base(message)
         {
+
         }
     }
 }

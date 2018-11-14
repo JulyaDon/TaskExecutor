@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D5CF2FEA-3120-459F-96BF-2F84CABC964E}</ProjectGuid>
+    <ProjectGuid>{AC4F575C-333A-4363-8D0D-7CA86FDE269D}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>TaskExecutorTests</RootNamespace>
-    <AssemblyName>TaskExecutorTests</AssemblyName>
+    <RootNamespace>TestProj</RootNamespace>
+    <AssemblyName>TestProj</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,7 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Executor.cs" />
+    <Compile Include="MainClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
