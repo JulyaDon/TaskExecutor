@@ -14,6 +14,10 @@ namespace TaskExecutor
         public void ToExecute()
         {
             Console.WriteLine("Execution of task {0}", _taskId);
+            if (_taskId == 24)
+            {
+                throw new Exception("Task id is 24");
+            }
             Thread.Sleep(1000);
             Console.WriteLine("Task {0} was finished", _taskId);
         }

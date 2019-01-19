@@ -37,7 +37,14 @@ namespace TaskExecutor
                     Action taskToExecute;
                     if (_tasksQueue.TryDequeue(out taskToExecute))
                     {
-                        taskToExecute();
+                        try
+                        {
+                            taskToExecute();
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("Exception {0} occured.", ex.Message);
+                        }
                     }
                     else
                     {
